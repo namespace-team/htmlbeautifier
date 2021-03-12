@@ -40,7 +40,7 @@ module HtmlBeautifier
     end
 
     def emit(*strings)
-      strings_join =strings.join("")
+      strings_join = strings.join("")
       @output << "\n" if @new_line && !@empty
       @output << (@tab * @level) if @new_line && !strings_join.strip.empty?
       @output << strings_join
