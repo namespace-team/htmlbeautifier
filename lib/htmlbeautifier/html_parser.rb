@@ -11,7 +11,8 @@ module HtmlBeautifier
       address | article | aside | audio | blockquote | canvas | dd | dir | div |
       dl | dt | fieldset | figcaption | figure | footer | form | h1 | h2 | h3 |
       h4 | h5 | h6 | header | hr | li | menu | noframes | noscript | ol | p |
-      pre | section | table | tbody | td | tfoot | th | thead | tr | ul | video
+      pre | section | span | table | tbody | td | tfoot | th | thead | tr | ul |
+      video
     )}mix
 
     MAPPINGS = [
@@ -35,16 +36,16 @@ module HtmlBeautifier
        :preformatted_block],
       [%r{<#{HTML_VOID_ELEMENTS}(?: #{ELEMENT_CONTENT})?/?>}om,
        :standalone_element],
-      [%r{<\w+(?: #{ELEMENT_CONTENT})?/>}om,
-       :standalone_element],
       [%r{</#{HTML_BLOCK_ELEMENTS}>}om,
        :close_block_element],
       [%r{<#{HTML_BLOCK_ELEMENTS}(?: #{ELEMENT_CONTENT})?>}om,
        :open_block_element],
       [%r{</#{ELEMENT_CONTENT}>}om,
        :close_element],
-      [%r{<#{ELEMENT_CONTENT}>}om,
+      [%r{<#{ELEMENT_CONTENT}[^/]>}om,
        :open_element],
+      [%r{<\w+(?: #{ELEMENT_CONTENT})?/>}om,
+       :standalone_element],
       [%r{(\s*\r?\n\s*)+}om,
        :new_lines],
       [%r{[^<\n]+},
